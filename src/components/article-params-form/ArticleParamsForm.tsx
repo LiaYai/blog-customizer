@@ -16,19 +16,39 @@ import {
 
 import clsx from 'clsx';
 import styles from './ArticleParamsForm.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 
 export const ArticleParamsForm = () => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const rootRef = useRef<HTMLDivElement>(null);
+
+	useOutsideClickClose({
+		isOpen: isOpen,
+		rootRef: rootRef,
+		onClose: () => {
+			setIsOpen(false);
+		},
+		onChange: () => {},
+	});
+
 	const [state, setState] = useState(defaultArticleState);
-	console.log(state);
+
 	const handleChange = (option: OptionType) => {
 		setState({ ...state, fontSizeOption: option });
 	};
 
 	return (
-		<>
-			<ArrowButton isOpen={true} onClick={() => {}} />
-			<aside className={clsx(styles.container, styles.container_open)}>
+		<div ref={rootRef}>
+			<ArrowButton
+				isOpen={isOpen}
+				onClick={() => {
+					setIsOpen(!isOpen);
+				}}
+			/>
+			<aside
+				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form className={styles.form}>
 					<Text as='h1' size={31} weight={800} uppercase>
 						Задайте параметры
@@ -59,6 +79,6 @@ export const ArticleParamsForm = () => {
 					</div>
 				</form>
 			</aside>
-		</>
+		</div>
 	);
 };
