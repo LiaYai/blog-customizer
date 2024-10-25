@@ -10,9 +10,9 @@ import {
 	fontColors,
 	backgroundColors,
 	contentWidthArr,
-	defaultArticleState,
 	OptionType,
 	ArticleStateType,
+	defaultArticleState,
 } from 'src/constants/articleProps';
 
 import clsx from 'clsx';
@@ -70,7 +70,7 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 			<aside
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={(e) => e.preventDefault()}>
 					<Text as='h1' size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
