@@ -12,6 +12,7 @@ import {
 	contentWidthArr,
 	defaultArticleState,
 	OptionType,
+	ArticleStateType,
 } from 'src/constants/articleProps';
 
 import clsx from 'clsx';
@@ -19,7 +20,14 @@ import styles from './ArticleParamsForm.module.scss';
 import { useRef, useState } from 'react';
 import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 
-export const ArticleParamsForm = () => {
+export type ArticleParamsFormProps = {
+	onChange: (state: ArticleStateType) => void;
+};
+
+export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
+	const { onChange } = props;
+
+	/** Открытие и закрытие формы **/
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
 
@@ -29,6 +37,7 @@ export const ArticleParamsForm = () => {
 		onChange: setIsOpen,
 	});
 
+	/** Установка состояния **/
 	const [state, setState] = useState(defaultArticleState);
 
 	const handleChangeFontFamily = (option: OptionType) => {
@@ -45,6 +54,15 @@ export const ArticleParamsForm = () => {
 	};
 	const handleChangeContentWidth = (option: OptionType) => {
 		setState({ ...state, contentWidth: option });
+	};
+
+	const handleReset = () => {
+		setState(defaultArticleState);
+		onChange(defaultArticleState);
+	};
+
+	const handleSubmit = () => {
+		onChange(state);
 	};
 
 	return (
@@ -89,8 +107,18 @@ export const ArticleParamsForm = () => {
 						onChange={handleChangeContentWidth}
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' />
-						<Button title='Применить' htmlType='submit' type='apply' />
+						<Button
+							title='Сбросить'
+							htmlType='reset'
+							type='clear'
+							onClick={handleReset}
+						/>
+						<Button
+							title='Применить'
+							htmlType='submit'
+							type='apply'
+							onClick={handleSubmit}
+						/>
 					</div>
 				</form>
 			</aside>
