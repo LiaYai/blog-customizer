@@ -40,6 +40,7 @@ export const Select = (props: SelectProps) => {
 	});
 
 	const handleOptionClick = (option: OptionType) => {
+		event?.stopPropagation;
 		setIsOpen(false);
 		onChange?.(option);
 	};

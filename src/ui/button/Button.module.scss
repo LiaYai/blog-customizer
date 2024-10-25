@@ -22,10 +22,21 @@
 	background-color: #ffedab;
 }
 
+.button_apply:focus-visible {
+	background-color: #ffedab;
+	outline: none;
+}
+
 .button_clear:hover {
 	background-color: #000000;
 }
 
-.button_clear:hover div {
+.button_clear:focus-visible {
+	background-color: #000000;
+	outline: none;
+}
+
+.button_clear:hover div,
+.button_clear:focus-visible div {
 	color: white;
 }
