@@ -48,6 +48,11 @@
 	outline: 1px solid #ffc802;
 }
 
+.selectWrapper:not([data-is-active='true'])
+	.placeholder:not([data-status='invalid']):focus-visible {
+	outline: 1px solid #ffc802;
+}
+
 .select {
 	position: absolute;
 	z-index: 10;
@@ -73,12 +78,21 @@
 	cursor: pointer;
 }
 
-.option[aria-selected='true'] {
-	background-color: rgb(0 0 0 / 5%);
+.option:hover {
+	background: #eeeeee;
 }
 
-.option:hover {
-	background: var(--grey, #c4c4c4);
+.option:focus-visible {
+	background: #eeeeee;
+	outline: none;
+}
+
+.option[data-selected='true'] {
+	background: #eeeeee;
+}
+
+.option:active {
+	background: #d7d7d7;
 }
 
 @mixin option-color-before {

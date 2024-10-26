@@ -38,6 +38,11 @@
 	background-color: #ffedab;
 }
 
+.item:focus-visible {
+	background-color: #ffedab;
+	outline: none;
+}
+
 .item[data-checked='true'] .label {
 	background: var(--gold, #ffc802);
 }
