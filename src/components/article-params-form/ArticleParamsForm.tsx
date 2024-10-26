@@ -61,7 +61,8 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 		onChange(defaultArticleState);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
 		onChange(state);
 	};
 
@@ -70,7 +71,10 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 			<aside
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-				<form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit}
+					onReset={handleReset}>
 					<Text as='h1' size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
@@ -107,18 +111,8 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						onChange={handleChangeContentWidth}
 					/>
 					<div className={styles.bottomContainer}>
-						<Button
-							title='Сбросить'
-							htmlType='reset'
-							type='clear'
-							onClick={handleReset}
-						/>
-						<Button
-							title='Применить'
-							htmlType='submit'
-							type='apply'
-							onClick={handleSubmit}
-						/>
+						<Button title='Сбросить' htmlType='reset' type='clear' />
+						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
 			</aside>
