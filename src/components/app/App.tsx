@@ -2,19 +2,14 @@ import { CSSProperties, useState } from 'react';
 
 import { Article } from '../article/Article';
 import { ArticleParamsForm } from '../article-params-form/ArticleParamsForm';
-import {
-	ArticleStateType,
-	defaultArticleState,
-} from 'src/constants/articleProps';
+import { defaultArticleState } from 'src/constants/articleProps';
 
 import clsx from 'clsx';
 import styles from './App.module.scss';
 
 export const App = () => {
 	const [state, setState] = useState(defaultArticleState);
-	const onChange = (state: ArticleStateType) => {
-		setState(state);
-	};
+
 	return (
 		<main
 			className={clsx(styles.main)}
@@ -27,7 +22,7 @@ export const App = () => {
 					'--bg-color': state.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm onChange={onChange} />
+			<ArticleParamsForm onChange={setState} />
 			<Article />
 		</main>
 	);

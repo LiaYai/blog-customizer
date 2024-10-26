@@ -40,21 +40,10 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	/** Установка состояния **/
 	const [state, setState] = useState(defaultArticleState);
 
-	const handleChangeFontFamily = (option: OptionType) => {
-		setState({ ...state, fontFamilyOption: option });
-	};
-	const handleChangeFontSize = (option: OptionType) => {
-		setState({ ...state, fontSizeOption: option });
-	};
-	const handleChangeFontColor = (option: OptionType) => {
-		setState({ ...state, fontColor: option });
-	};
-	const handleChangeBackgroundColor = (option: OptionType) => {
-		setState({ ...state, backgroundColor: option });
-	};
-	const handleChangeContentWidth = (option: OptionType) => {
-		setState({ ...state, contentWidth: option });
-	};
+	const handleOnChange =
+		(field: keyof ArticleStateType) => (option: OptionType) => {
+			setState((prevState) => ({ ...prevState, [field]: option }));
+		};
 
 	const handleReset = () => {
 		setState(defaultArticleState);
@@ -82,33 +71,33 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						selected={state.fontFamilyOption}
 						options={fontFamilyOptions}
 						title='Шрифт'
-						onChange={handleChangeFontFamily}
+						onChange={handleOnChange('fontFamilyOption')}
 					/>
 					<RadioGroup
 						name={'fontSize'}
 						options={fontSizeOptions}
 						selected={state.fontSizeOption}
 						title={'Размер шрифта'}
-						onChange={handleChangeFontSize}
+						onChange={handleOnChange('fontSizeOption')}
 					/>
 					<Select
 						selected={state.fontColor}
 						options={fontColors}
 						title='Цвет шрифта'
-						onChange={handleChangeFontColor}
+						onChange={handleOnChange('fontColor')}
 					/>
 					<Separator />
 					<Select
 						selected={state.backgroundColor}
 						options={backgroundColors}
 						title='Цвет фона'
-						onChange={handleChangeBackgroundColor}
+						onChange={handleOnChange('backgroundColor')}
 					/>
 					<Select
 						selected={state.contentWidth}
 						options={contentWidthArr}
 						title='Ширина контента'
-						onChange={handleChangeContentWidth}
+						onChange={handleOnChange('contentWidth')}
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' htmlType='reset' type='clear' />
